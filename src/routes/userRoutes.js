@@ -6,10 +6,10 @@ import { getUserByNameAndEmail } from "../controllers/UsersControllers.js";
 const router = express.Router();
 
 // Rota para criar um usuário
-router.post("/", createUser);
+router.post("/register", createUser);
 // Rota para buscar todos os usuários
-router.get("/todosUsuarios", getAllUsers);
+router.get("/getAllUsers", getAllUsers);
 // Rota para buscar um usuario pelo nome
-router.get("/:nome", getUserByNameAndEmail);
+router.get("/:name", getUserByNameAndEmail);
 
 export default router;
