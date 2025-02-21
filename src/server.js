@@ -9,4 +9,4 @@ app.use("/api/auth/", userRoutes);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => console.log(`✅ API esta rodando na porta: ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 API esta rodando na porta: ${PORT}`));

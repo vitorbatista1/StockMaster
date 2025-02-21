@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import bcrtypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 
@@ -9,7 +10,7 @@ const prisma = new PrismaClient();
 export const createUser = async (req, res) => {
     const { nome, email, senha, cargo } = req.body;
 
-    const senhaCriptografada = await bcrtypt.hash(senha, 10);
+    const senhaCriptografada = await bcrypt.hash(senha, 10);
 
     if (!nome || !email || !senha || !cargo) {
         return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' });
@@ -47,14 +48,14 @@ export const createUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-    console.log("🔹 Rota de login foi chamada"); // Primeiro log
+    console.log("🔹 Rota de login foi chamada"); 
 
     const { email, senha } = req.body;
-    console.log("📩 Dados recebidos:", email, senha); // Log dos dados recebidos
+    console.log("📩 Dados recebidos:", email, senha); 
 
     try {
         const user = await prisma.user.findUnique({ where: { email } });
-        console.log("🧐 Usuário encontrado:", user); // Log do usuário encontrado
+        console.log("🧐 Usuário encontrado:", user);
 
         if (!user) {
             return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -85,6 +86,7 @@ export const loginUser = async (req, res) => {
 
 
 export const getAllUsers = async (req, res) => {
+
     try {
         const users = await prisma.user.findMany({
             select: {
